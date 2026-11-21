@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Handuk (mint bergaris) -->
+  <g fill="none" stroke="#4b3f48" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#c9f0e4" d="M14 6 H50 V58 H14 Z"/>
+    <path d="M14 44 H50" stroke="#f4a7bb" stroke-width="3.5"/>
+    <path d="M14 51 H50" stroke="#ffffff" stroke-width="3"/>
+    <path d="M18 58 V62 M24 58 V62 M30 58 V62 M36 58 V62 M42 58 V62 M48 58 V62" stroke-width="1.8"/>
+  </g>
+</svg>

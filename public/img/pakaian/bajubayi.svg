@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Baju bayi (pink muda) -->
+  <g fill="none" stroke="#4b3f48" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#ffe0ea" d="M20 8 L10 14 L6 24 L14 28 L18 22 L18 44 L24 58 L30 58 L32 50 L34 58 L40 58 L46 44 L46 22 L50 28 L58 24 L54 14 L44 8 Q32 16 20 8 Z"/>
+    <path fill="#ffc4d4" d="M27 30 Q32 25 37 30 Q37 35 32 38 Q27 35 27 30 Z" stroke-width="1.8"/>
+    <circle cx="28" cy="52" r="1.2" fill="#4b3f48"/><circle cx="36" cy="52" r="1.2" fill="#4b3f48"/>
+  </g>
+</svg>

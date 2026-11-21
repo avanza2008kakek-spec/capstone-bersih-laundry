@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Kaos (pink) -->
+  <g fill="none" stroke="#4b3f48" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#ffc4d4" d="M22 8 L11 14 L5 27 L14 31 L18 25 L18 57 L46 57 L46 25 L50 31 L59 27 L53 14 L42 8 Q32 17 22 8 Z"/>
+    <path d="M26 40 Q32 44 38 40" stroke="#ffffff" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+# =====================================================================
+# .htaccess ROOT PROYEK (C:\xampp\htdocs\Laundry\.htaccess)
+# ---------------------------------------------------------------------
+# Dipakai saat document root hosting menunjuk ke folder proyek, bukan
+# ke folder public. Semua request diteruskan ke folder public/, sehingga
+# file lain (storage, database, vendor, composer.*, artisan, .env) tidak
+# bisa dibuka atau diunduh dari browser.
+#
+# Catatan: di .htaccess, keterangan (#) harus ditulis di baris sendiri.
+# Menaruh # di belakang perintah pada baris yang sama akan membuat error 500.
+# =====================================================================
+
+# Matikan daftar isi folder (-Indexes): kalau folder dibuka tanpa file index,
+# Apache tidak menampilkan daftar file di dalamnya.
+# Matikan MultiViews (-MultiViews): supaya Apache tidak menebak file lain
+# (misal /laporan dianggap laporan.php) yang bisa mengganggu routing Laravel.
+Options -Indexes -MultiViews
+
+# 1. Tolak semua file tersembunyi, yaitu file yang namanya diawali titik
+#    (.env berisi password database, .git, .htaccess, dll.)
+#    "^\." artinya: nama file yang dimulai dengan karakter titik.
+<FilesMatch "^\.">
+    # Semua pengunjung ditolak (403 Forbidden)
+    Require all denied
+</FilesMatch>
+
+# Blok di bawah hanya dijalankan kalau modul mod_rewrite aktif di server
+<IfModule mod_rewrite.c>
+    # Aktifkan mesin penulisan ulang alamat (URL rewrite)
+    RewriteEngine On
+
+    # 2. Teruskan SEMUA request ke folder public secara internal.
+    #    Pengunjung tetap melihat alamat https://laundry.kaijasmine.com/laporan,
+    #    tapi di dalam server yang dibuka adalah public/laporan.
+    #    ^(.*)$ = tangkap seluruh alamat yang diminta, $1 = hasil tangkapan itu.
+    #    [L]    = Last: berhenti, jangan proses aturan lain di file ini.
+    #    Setelah ini, aturan di public/.htaccess yang melanjutkan.
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

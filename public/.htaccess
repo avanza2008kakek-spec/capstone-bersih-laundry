@@ -1,0 +1,81 @@
+# =====================================================================
+# .htaccess FOLDER PUBLIC (C:\xampp\htdocs\Laundry\public\.htaccess)
+# ---------------------------------------------------------------------
+# Folder public adalah satu-satunya folder yang boleh dibuka dari browser.
+# File ini mengatur: pengalihan alamat lama /public/..., perapian alamat,
+# dan meneruskan semua halaman ke index.php (pintu masuk Laravel).
+#
+# Catatan: di .htaccess, keterangan (#) harus ditulis di baris sendiri.
+# Menaruh # di belakang perintah pada baris yang sama akan membuat error 500.
+# =====================================================================
+
+# Blok di bawah hanya dijalankan kalau modul mod_rewrite aktif di server
+<IfModule mod_rewrite.c>
+    # Blok ini hanya dijalankan kalau modul mod_negotiation aktif
+    <IfModule mod_negotiation.c>
+        # -MultiViews: Apache tidak menebak file lain (misal /laporan -> laporan.php)
+        # -Indexes   : isi folder tidak ditampilkan sebagai daftar file
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    # Aktifkan mesin penulisan ulang alamat (URL rewrite)
+    RewriteEngine On
+
+    # 1. Lindungi file .env (berisi password database dan kunci aplikasi)
+    <Files .env>
+        # Urutan pemeriksaan: izinkan dulu, lalu tolak
+        Order allow,deny
+        # Tolak semua pengunjung (403 Forbidden)
+        Deny from all
+    </Files>
+
+    # 2. Teruskan header Authorization ke PHP.
+    #    Sebagian server membuang header ini, padahal dibutuhkan untuk login
+    #    berbasis token (API). Kalau header ada (.), salin ke variabel
+    #    HTTP_AUTHORIZATION supaya bisa dibaca Laravel. "-" = alamat tidak diubah.
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # 3. Alihkan alamat lama /public/... ke alamat tanpa /public.
+    #    Contoh: /public/laporan -> /laporan
+    #    Aturan ini ditaruh di sini karena .htaccess root tidak berlaku
+    #    untuk alamat yang langsung menunjuk ke folder public.
+    #
+    #    Syarat a: REDIRECT_STATUS kosong = ini request asli dari browser,
+    #              bukan hasil penerusan internal dari .htaccess root.
+    #              Tanpa syarat ini bisa terjadi pengalihan berulang tanpa henti.
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    #    Syarat b: baris request asli dari browser (THE_REQUEST, contoh
+    #              "GET /public/laporan?x=1 HTTP/1.1") mengandung /public.
+    #              %1 = bagian sebelum /public, %2 = bagian sesudah /public/.
+    RewriteCond %{THE_REQUEST} \s(\S*?)/public(?:/(\S*))?\s
+    #    Lakukan pengalihan ke alamat baru.
+    #    R=301 = pengalihan permanen (browser & Google mengingat alamat baru)
+    #    L     = berhenti, jangan proses aturan lain
+    #    NE    = No Escape: karakter seperti ? dan & tidak diubah jadi kode %xx
+    RewriteRule ^ %1/%2 [R=301,L,NE]
+
+    # 4. Hilangkan garis miring (/) di akhir alamat jika bukan folder.
+    #    Contoh: /laporan/ -> /laporan, supaya satu halaman hanya punya satu alamat.
+    #    Syarat: yang diminta bukan folder sungguhan (!-d)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    #    Syarat: alamat asli dari browser (THE_REQUEST) diakhiri garis miring.
+    #    Dibaca dari THE_REQUEST, bukan REQUEST_URI, karena REQUEST_URI sudah
+    #    berubah jadi /public/... setelah diteruskan oleh .htaccess root.
+    #    %1 = alamat tanpa garis miring di akhir (query ?x=1 tidak ikut ditangkap)
+    RewriteCond %{THE_REQUEST} \s([^?\s]*[^/?\s])/+(?:\?\S*)?\s
+    #    Alihkan permanen (301) ke alamat tanpa garis miring di akhir.
+    #    Query string (?start_date=...) otomatis ditambahkan kembali oleh Apache.
+    RewriteRule ^ %1 [L,R=301]
+
+    # 5. Arahkan semua request ke index.php (pintu masuk Laravel).
+    #    File dan folder yang benar-benar ada (gambar, css, js, favicon)
+    #    langsung dikirim apa adanya. Selain itu, misal /orders atau /laporan,
+    #    diserahkan ke index.php lalu Laravel mencocokkan dengan routes/web.php.
+    #    Syarat: yang diminta bukan folder sungguhan
+    RewriteCond %{REQUEST_FILENAME} !-d
+    #    Syarat: yang diminta bukan file sungguhan
+    RewriteCond %{REQUEST_FILENAME} !-f
+    #    Jalankan index.php
+    RewriteRule ^ index.php [L]
+</IfModule>

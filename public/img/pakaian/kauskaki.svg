@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Kaus kaki (kuning) -->
+  <g fill="none" stroke="#4b3f48" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#ffe7a3" d="M18 4 L32 4 L32 36 Q32 44 41 46 L46 48 Q52 54 45 58 L27 58 Q16 56 18 44 Z"/>
+    <path d="M18 12 L32 12" stroke="#f4a7bb" stroke-width="3.5"/>
+    <path d="M18 19 L32 19" stroke="#8fd3c1" stroke-width="3.5"/>
+    <path fill="#ffc4d4" d="M40 47 Q50 50 46 58 L40 58 Q44 53 40 47 Z"/>
+  </g>
+</svg>

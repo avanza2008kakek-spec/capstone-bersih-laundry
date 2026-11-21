@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Dress (ungu muda) -->
+  <g fill="none" stroke="#4b3f48" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#e2ccff" d="M24 6 L26 17 Q20 23 22 30 L9 58 L55 58 L42 30 Q44 23 38 17 L40 6 Q32 12 24 6 Z"/>
+    <path d="M22 30 L42 30" stroke="#f4a7bb" stroke-width="3.5"/>
+    <path d="M16 50 Q32 54 48 50" stroke="#ffffff" stroke-width="2"/>
+  </g>
+</svg>

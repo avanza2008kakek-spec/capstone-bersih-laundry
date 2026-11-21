@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Gelembung sabun: tengah hampir bening, tepi berwarna pelangi lembut, kilau putih di kiri atas -->
+  <defs>
+    <!-- Isi gelembung: bening di tengah, makin berwarna ke arah tepi -->
+    <radialGradient id="isi" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="70%" stop-color="#e8f4ff" stop-opacity="0.18"/>
+      <stop offset="90%" stop-color="#ffd6ea" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#c9f0e4" stop-opacity="0.7"/>
+    </radialGradient>
+    <!-- Warna pelangi di tepi: pink → biru → mint → ungu muda -->
+    <linearGradient id="tepi" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffb8d6"/>
+      <stop offset="35%" stop-color="#b8dcff"/>
+      <stop offset="65%" stop-color="#b9f2df"/>
+      <stop offset="100%" stop-color="#e2ccff"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="94" fill="url(#isi)"/>
+  <circle cx="100" cy="100" r="94" fill="none" stroke="url(#tepi)" stroke-width="5" stroke-opacity="0.8"/>
+  <!-- Kilau putih -->
+  <path d="M48 70 A60 60 0 0 1 92 34" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-opacity="0.9"/>
+  <circle cx="44" cy="88" r="5" fill="#ffffff" fill-opacity="0.85"/>
+  <path d="M150 150 A60 60 0 0 1 120 168" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-opacity="0.6"/>
+</svg>
